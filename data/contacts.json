@@ -1,0 +1,15 @@
+{
+    "maxIndex": 105,
+    "data": [
+        {
+            "id": 104,
+            "name": "John Doe",
+            "email": "johndoe@example.com"
+        },
+        {
+            "id": 105,
+            "name": "Jane Doe",
+            "email": "janedoe@example.com"
+        }
+    ]
+}

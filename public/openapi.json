@@ -1,0 +1,209 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Example contacts API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/contacts": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "operationId": "contactsList",
+                "responses": {
+                    "200": {
+                        "description": "Full contact list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ContactItem"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Contacts"
+                ],
+                "operationId": "contactCreate",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Contact name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Contact email",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Get contact",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ContactItem"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data sent.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Contacts"
+                ],
+                "operationId": "contactDelete",
+                "parameters": [
+                    {
+                        "name": "contactId",
+                        "in": "path",
+                        "description": "Contact ID",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Contact not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{contactId}": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "operationId": "contactDetail",
+                "parameters": [
+                    {
+                        "name": "contactId",
+                        "in": "path",
+                        "description": "Contact ID",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get contact",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ContactItem"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Contact not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ContactItem": {
+                "description": "Contact Item",
+                "properties": {
+                    "id": {
+                        "description": "Contact Item Id",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Contact Name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Contact Email",
+                        "type": "email"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Contacts",
+            "description": "Contacts"
+        }
+    ]
+}

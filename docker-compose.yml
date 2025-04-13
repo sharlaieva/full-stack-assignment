@@ -1,0 +1,38 @@
+services:
+  php:
+    build: ./build/php
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    command: bash -c "composer install && php -S 0.0.0.0:80 -t /app/public"
+    ports:
+      - "8888:80"
+    working_dir: /app
+
+  reactApp:
+    image: node
+    working_dir: /app
+    command: bash -c "npm install && npm start"
+    environment:
+      docker: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./contact-app:/app
+
+  cypress:
+    build:
+      context: ./
+      dockerfile: ./build/cypress/Dockerfile
+    working_dir: /app
+    depends_on:
+      - reactApp
+    command: bash -c "DISPLAY="host.docker.internal:0" npx cypress open"
+    profiles:
+      - donotstart
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./cypress/cypress:/app/cypress
+      - ./cypress/cypress.config.ts:/app/cypress.config.ts
+      - ./cypress/tsconfig.json:/app/tsconfig.json

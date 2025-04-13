@@ -1,0 +1,36 @@
+# suite config
+suites:
+    api:
+        actor: ApiTester
+        path: .
+        modules:
+            enabled:
+                - Asserts
+                - REST
+                - PhpBrowser
+            config:
+                REST:
+                    part: Json
+                    timeout: 240
+                    depends: PhpBrowser
+                PhpBrowser:
+                    curl:
+                        CURLOPT_TIMEOUT: 240
+        step_decorators:
+            - \Codeception\Step\AsJson
+        namespace: wnd\appStub\tests\api\support
+
+extends: tests/api/_data/defaultCestData.yml
+paths:
+    tests: tests/api
+    output: tests/api/_output
+    data: tests/api/_data
+    support: tests/api/support
+    envs: tests/api/_envs
+
+settings:
+    shuffle: false
+    lint: true
+
+params:
+    - env

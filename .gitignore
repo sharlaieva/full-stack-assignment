@@ -1,0 +1,9 @@
+.idea
+vendor
+
+cypress/node_modules
+
+tests/.phpunit.result.cache
+tests/test-results-*
+tests/.phpunit.cache
+tests/api/_envs/dev.yml

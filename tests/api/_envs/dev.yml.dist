@@ -1,0 +1,4 @@
+modules:
+  config:
+    PhpBrowser:
+      url: http://host.docker.internal:8888
