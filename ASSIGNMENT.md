@@ -1,4 +1,4 @@
-# Zadání úkolu pro testera
+# Zadání úkolu pro Full-stack developera
 
 Byl vám poskytnut malý projekt pro správu kontaktů, který zahrnuje:
 - **Základ React aplikace** uživatelského rozhraní.
