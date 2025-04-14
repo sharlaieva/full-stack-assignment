@@ -18,6 +18,9 @@ docker compose up -d
 API URL (Včetně DOC): http://localhost:8888
 Contact app URL: http://localhost:3000
 
+
+# Testy
+Testy je možno doplnit pro techonolige, které řešitel zná. Případně jako bonus. Nejsou nutností řešení.
 ## Spuštění unit testů
 
 ```bash

@@ -16,6 +16,8 @@ Doplň DELETE API endpoint pro smazání kontaktu.
 Pro vytvoření UI můžeš použít libovolnou technologii či knihovnu dle svého výběru.
 #### Bonusové body:
 Zohlednění přístupnosti (accessibility) aplikace.
+#### Testy:
+Volitelnou částí řešení jsou také testy v technologiícvh, které znáš.
 
 ### Odevzdání
 Máte k dispozici GitLab repozitář s projektem. Odevzdání může proběhnout jedním z následujících způsobů:
