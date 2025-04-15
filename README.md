@@ -1,6 +1,6 @@
 # Jak spustit projekt
 
-## Prezekvizity
+## Prerekvizity
 
 Je potřeba mít na počítači nainstalovaný Docker, lze postupovat např. 
 podle návodu: https://www.itnetwork.cz/site/docker/docker-teorie-a-instalace a nainstalovat 

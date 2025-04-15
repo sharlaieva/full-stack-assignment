@@ -17,7 +17,7 @@ Pro vytvoření UI můžeš použít libovolnou technologii či knihovnu dle sv�
 #### Bonusové body:
 Zohlednění přístupnosti (accessibility) aplikace.
 #### Testy:
-Volitelnou částí řešení jsou také testy v technologiícvh, které znáš.
+Volitelnou částí řešení jsou také testy v technologiích, které znáš.
 
 ### Odevzdání
 Máte k dispozici GitLab repozitář s projektem. Odevzdání může proběhnout jedním z následujících způsobů:
