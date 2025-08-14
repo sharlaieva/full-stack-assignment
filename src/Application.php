@@ -63,7 +63,7 @@ class Application
     private function handleOptionsRequest(): void {
         $response = new Response();
         $response->headers->add(['Access-Control-Allow-Origin' => '*']);
-        $response->headers->add(['Access-Control-Allow-Methods' => 'GET, POST']);
+        $response->headers->add(['Access-Control-Allow-Methods' => 'GET, POST, DELETE']);
         $response->headers->add(['Access-Control-Allow-Headers' => 'Content-Type']);
 
         $response->send();

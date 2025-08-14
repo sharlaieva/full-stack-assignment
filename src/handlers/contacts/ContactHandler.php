@@ -14,6 +14,7 @@ use wnd\appStub\core\response\JsonResponseFactory;
 use wnd\appStub\domain\contacts\ContactCreationRequest;
 use wnd\appStub\domain\contacts\ContactNotFoundException;
 use OpenApi\Attributes as OA;
+use wnd\appStub\application\contacts\DeleteContactUseCase;
 
 #[OA\Info(version: "1.0", title: "Example contacts API")]
 
@@ -25,6 +26,7 @@ class ContactHandler
         private readonly GetContactsListUseCase $getContactsListUseCase,
         private readonly GetContactUseCase $getContactUseCase,
         private readonly CreateContactUseCase $createContactUseCase,
+        private readonly DeleteContactUseCase $deleteContactUseCase,
     ) {}
 
     #[OA\Get(
@@ -122,6 +124,41 @@ class ContactHandler
             $this->transformer->transformToArray($contact),
         );
     }
+
+    #[Route(
+        '/contacts/{contactId}',
+        'deleteContact',
+        requirements: ['contactId' => '\d+'],
+        methods: [Request::METHOD_DELETE, Request::METHOD_OPTIONS]
+    )]
+    public function deleteContact(Request $request, string $contactId): Response
+    {
+        if ($request->getMethod() === Request::METHOD_OPTIONS) {
+            return $this->responseFactory->create(
+                null,
+                Response::HTTP_NO_CONTENT,
+                [
+                    'Access-Control-Allow-Methods' => 'DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+                ]
+            );
+        }
+
+        try {
+            $this->deleteContactUseCase->execute((int) $contactId);
+        } catch (ContactNotFoundException) {
+            return $this->responseFactory->createError(
+                'Contact not found',
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        return $this->responseFactory->create(
+            ['message' => 'Contact deleted'],
+            Response::HTTP_OK
+        );
+    }
+
 
     #[OA\Post(
         path: '/contacts',
