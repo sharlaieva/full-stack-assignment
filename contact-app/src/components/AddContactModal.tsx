@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Modal } from 'antd';
+import React, { useRef, useEffect } from 'react';
+import { Modal, Form, InputRef } from 'antd';
 import Button from './Button';
 import ContactForm from './ContactForm';
-import { ContactFormData, initialFormData } from '../types/contacts';
+import { ContactFormData } from '../types/contacts';
 
 interface Props {
   visible: boolean;
@@ -11,22 +11,18 @@ interface Props {
 }
 
 const AddContactModal: React.FC<Props> = ({ visible, onClose, onSubmit }) => {
-  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
+  const [form] = Form.useForm<ContactFormData>();
+  const firstInputRef = useRef<InputRef | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  useEffect(() => {
+    if (visible) {
+      setTimeout(() => firstInputRef.current?.focus(), 100);
+    }
+  }, [visible]);
 
-  const resetForm = () => setFormData(initialFormData);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(formData);
-    resetForm();
-  };
-
-  const handleClose = () => {
-    resetForm();
+  const handleFinish = (values: ContactFormData) => {
+    onSubmit(values);
+    form.resetFields();
     onClose();
   };
 
@@ -34,26 +30,16 @@ const AddContactModal: React.FC<Props> = ({ visible, onClose, onSubmit }) => {
     <Modal
       title="Add Contact"
       open={visible}
-      onCancel={handleClose}
+      onCancel={() => { form.resetFields(); onClose(); }}
       footer={[
-        <Button key="cancel" onClick={handleClose} className="mb-2">
-          Cancel
-        </Button>,
-        <Button
-          key="save"
-          htmlType="submit"
-          form="contact-form"
-          type="primary"
-          className="mb-2"
-        >
-          Save
-        </Button>,
+        <Button key="cancel" onClick={() => { form.resetFields(); onClose(); }}>Cancel</Button>,
+        <Button key="save" type="primary" onClick={() => form.submit()}>Save</Button>
       ]}
       destroyOnHidden
     >
-      <form id="contact-form" onSubmit={handleSubmit}>
-        <ContactForm formData={formData} onChange={handleChange} />
-      </form>
+      <Form form={form} layout="vertical" onFinish={handleFinish}>
+        <ContactForm form={form} firstInputRef={firstInputRef} />
+      </Form>
     </Modal>
   );
 };
