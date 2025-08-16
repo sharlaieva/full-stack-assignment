@@ -30,14 +30,21 @@ const AddContactModal: React.FC<Props> = ({ visible, onClose, onSubmit }) => {
     <Modal
       title="Add Contact"
       open={visible}
-      onCancel={() => { form.resetFields(); onClose(); }}
+      onCancel={() => {
+        form.resetFields();
+        onClose();
+      }}
       footer={[
         <Button key="cancel" onClick={() => { form.resetFields(); onClose(); }}>Cancel</Button>,
         <Button key="save" type="primary" onClick={() => form.submit()}>Save</Button>
       ]}
       destroyOnHidden
     >
-      <Form form={form} layout="vertical" onFinish={handleFinish}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleFinish}
+      >
         <ContactForm form={form} firstInputRef={firstInputRef} />
       </Form>
     </Modal>
